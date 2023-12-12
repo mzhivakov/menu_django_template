@@ -1,0 +1,27 @@
+<ul>
+    {% for item in menu_items %}
+        <li>
+            <a href="/{{ item.url }}" id="{{ item.url }}" 
+
+            {% if request.path|slice:"1:-1" == item.url or item.parent == None or request.path|slice:"1:-1" == item.parent.url %}
+                style="display: block;"
+            {% else %}
+                style="display: none;"
+            {% endif %}
+            
+            >{{ item.title }}</a>
+            
+            {% if item.children.exists %}
+                {% include 'menu_recursion.html' with menu_items=item.children.all %}
+            {% endif %}
+
+            {% if request.path|slice:"1:-1" == item.url %}
+                {% for ancestor_id in item.get_ancestor_urls %}
+                    <script>
+                        document.getElementById("{{ ancestor_id }}").style.display = "block";
+                    </script>
+                {% endfor %}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>

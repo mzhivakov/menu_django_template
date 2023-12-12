@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+db.sqlite3
+db.sqlite3-journal
+menu_django_root/menu_django_root
+menu_django_root/menu/migrations/
+menu_django_root/manage.py
